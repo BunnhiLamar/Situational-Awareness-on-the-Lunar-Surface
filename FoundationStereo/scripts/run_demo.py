@@ -16,6 +16,7 @@ from core.utils.utils import InputPadder
 from Utils import *
 from core.foundation_stereo import *
 
+
 def get_depth_estimator():
   args = get_args()
   ckpt_dir = args.ckpt_dir
@@ -77,7 +78,7 @@ def get_depth(model,args, img0, img1):
     K[:2] *= scale
     depth = K[0,0]*baseline/disp
     # print(depth)
-    # print(depth.shape)
+    # print('depthshape',depth.shape)
     return depth
 
 def get_args():
@@ -87,7 +88,7 @@ def get_args():
   parser.add_argument('--right_file', default=f'{code_dir}/../assets/right.png', type=str)
   parser.add_argument('--intrinsic_file', default=f'{code_dir}/../assets/K.txt', type=str, help='camera intrinsic matrix and baseline file')
   parser.add_argument('--ckpt_dir', default=f'{code_dir}/../checkpoints/model_best_bp2.pth', type=str, help='pretrained model path')
-  parser.add_argument('--out_dir', default=f'/home/nhinguyen/Desktop/OmniLRS/demo_res/', type=str, help='the directory to save results')
+  parser.add_argument('--out_dir', default=f'/home/nhinguyen/Desktop/OmniLRS/demo_res_2/', type=str, help='the directory to save results')
   parser.add_argument('--scale', default=1, type=float, help='downsize the image by scale, must be <=1')
   parser.add_argument('--hiera', default=0, type=int, help='hierarchical inference (only needed for high-resolution images (>1K))')
   parser.add_argument('--z_far', default=10, type=float, help='max depth to clip in point cloud')

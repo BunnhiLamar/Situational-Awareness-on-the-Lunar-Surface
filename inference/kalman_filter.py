@@ -7,7 +7,7 @@ class KalmanFilter:
     (vx, vy are velos of the bounding box center)
     """
     def __init__(self, initial_bbox: np.ndarray,
-                 dt: float = 1.0,
+                 dt: float = 0.0001,
                  process_noise_scale: float = 0.01,
                  measurement_noise_scale: float = 1.0):
         # Initialize state vector [xmin, ymin, xmax, ymax, avgdepth, vx, vy]
@@ -74,8 +74,8 @@ class KalmanFilter:
         Returns:
             Updated state vector
         """
-        z = measurement.reshape((5, 1))
-        
+        z = np.array(measurement).reshape((5, 1))
+        # z = measurement
         # Calculate Kalman gain
         S = self.H @ self.P @ self.H.T + self.R
         K = self.P @ self.H.T @ np.linalg.inv(S)
